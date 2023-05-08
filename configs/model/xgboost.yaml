@@ -1,2 +1,3 @@
 _target_: xgboost.XGBRegressor
-n_estimators: 200
+max_depth: 6
+random_state: 42

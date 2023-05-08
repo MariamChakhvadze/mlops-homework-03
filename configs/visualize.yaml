@@ -1,0 +1,3 @@
+data:
+  - filepath: data/processed/green_tripdata_2021-01_target.csv
+    fig_name: green_tripdata_2021-01_target

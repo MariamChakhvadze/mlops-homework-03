@@ -1,0 +1,7 @@
+data:
+  - filepath: data/external/green_tripdata_2021-01.parquet
+    prefix: green_tripdata_2021-01
+  - filepath: data/external/green_tripdata_2021-02.parquet
+    prefix: green_tripdata_2021-02
+
+save_dir: data/processed

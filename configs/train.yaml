@@ -1,6 +1,8 @@
 defaults:
   - _self_
-  - model: random_forest
+  - model: xgboost
 
-train_data: data/external/green_tripdata_2021-01.parquet
-valid_data: data/external/green_tripdata_2021-02.parquet
+train_features: data/processed/green_tripdata_2021-01_features.csv
+train_target: data/processed/green_tripdata_2021-01_target.csv
+valid_features: data/processed/green_tripdata_2021-02_features.csv
+valid_target: data/processed/green_tripdata_2021-02_target.csv

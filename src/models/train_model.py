@@ -24,10 +24,10 @@ def train(config: omegaconf.DictConfig) -> None:
     model = hydra.utils.instantiate(config.model)
 
     X_train = pd.read_csv(config.train_features)
-    y_train = pd.read_csv(config.train_target)
+    y_train = pd.read_csv(config.train_target).squeeze()
 
     X_valid = pd.read_csv(config.valid_features)
-    y_valid = pd.read_csv(config.valid_target)
+    y_valid = pd.read_csv(config.valid_target).squeeze()
 
     pipe = pipeline.make_pipeline(
         utils.TabularToDict(),

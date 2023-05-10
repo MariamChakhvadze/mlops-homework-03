@@ -15,8 +15,12 @@ from features import utils
 
 
 @hydra.main(config_path="../../configs", config_name="train", version_base="1.3.2")
-def train(config: omegaconf.DictConfig):
-    """"""
+def train(config: omegaconf.DictConfig) -> None:
+    """Train model and log all information in MLFlow.
+
+    Args:
+        config: configuration for training.
+    """
     model = hydra.utils.instantiate(config.model)
 
     X_train = pd.read_csv(config.train_features)
@@ -42,9 +46,11 @@ def train(config: omegaconf.DictConfig):
         mlflow.log_param("valid_features", config.valid_features)
         mlflow.log_param("valid_target", config.valid_target)
 
-        # for name, value in model.get_params().items():
-        #     mlflow.log_param(name, value)
-        mlflow.log_params(config.model)
+        if config.log_all_model_params:
+            for name, value in model.get_params().items():
+                mlflow.log_param(name, value)
+        else:
+            mlflow.log_params(config.model)
 
         mlflow.log_metric(
             "RMSE", metrics.mean_squared_error(y_valid, y_pred, squared=False)

@@ -3,5 +3,13 @@ data:
     prefix: green_tripdata_2021-01
   - filepath: data/external/green_tripdata_2021-02.parquet
     prefix: green_tripdata_2021-02
+  - filepath: data/external/green_tripdata_2021-03.parquet
+    prefix: green_tripdata_2021-03
+  - filepath: data/external/green_tripdata_2021-04.parquet
+    prefix: green_tripdata_2021-04
+  - filepath: data/external/green_tripdata_2021-05.parquet
+    prefix: green_tripdata_2021-05
+  - filepath: data/external/green_tripdata_2021-06.parquet
+    prefix: green_tripdata_2021-06
 
 save_dir: data/processed

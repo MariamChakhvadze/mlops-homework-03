@@ -18,12 +18,26 @@ The homework consists of 10 stages:
 
 3. **Task #2**
 
-    The starter notebook was refactored into several scripts and MLFlow tracking was integrated.
+    The starter notebook was refactored into several scripts and [MLFlow](https://mlflow.org/) tracking was integrated.
 
     * [hydra](https://hydra.cc/) support was implemented for configurations.
-    * To process data and split it into features and target, `src/features/build_features.py` was implemented. It creates CSV files in `data/processed` directory. Created files were checked using DVC. Also, these files were used in some of the following tasks, especially in training processes. Configuration for this script is in `configs/build_features.yaml`.
-    * After processing data, to visualize target distribution, `src/visualization/visualize.py` was created. It takes configurations from `configs/visualize.yaml`, plots the distribution for each target file (can work with several ones) and logs figures in MLFlow `visualizations` experiment.
-    * To train the model, `src/models/train_model.py` was implemented. It uses configurations from `configs/train.yaml`. Note, several features/target files can be used for training/validation. The script logs all runs in MLFlow `trainings` experiment with all necessary information, metrics and artifacts. With `log_all_model_params: true` all parameters are logged in MLFlow. It also creates `predictions.txt` (model predictions on validation data) file in `models` directory.
+    * To process data and split it into features and target, `src/features/build_features.py` was implemented. It creates CSV files in `data/processed` directory. Created files were checked using DVC. Also, these files were used in some of the following tasks, especially in training processes. Configuration for this script is in `configs/build_features.yaml`. Run:
+   
+        ```bash
+        $ python src/features/build_features.py
+        ```
+
+    * After processing data, to visualize target distribution, `src/visualization/visualize.py` was created. It takes configurations from `configs/visualize.yaml`, plots the distribution for each target file (can work with several ones) and logs figures in MLFlow `visualizations` experiment. Run:
+   
+        ```bash
+        $ python src/visualization/visualize.py
+        ```
+
+    * To train the model, `src/models/train_model.py` was implemented. It uses configurations from `configs/train.yaml`. Note, several features/target files can be used for training/validation. The script logs all runs in MLFlow `trainings` experiment with all necessary information, metrics and artifacts. With `log_all_model_params: true` all parameters are logged in MLFlow. It also creates `predictions.txt` (model predictions on validation data) file in `models` directory. Run:
+   
+        ```bash
+        $ python src/models/train_model.py
+        ```
 
 4. **Task #3**
 
@@ -41,7 +55,11 @@ The homework consists of 10 stages:
     
 5. **Task #4**
 
-    The tuning was implemented for XGBRegressor in `src/models/tune_xgboost.py` using [Optuna](https://optuna.org/). The data is configurable from `configs/tune.yaml`.
+    The tuning was implemented for XGBRegressor in `src/models/tune_xgboost.py` using [Optuna](https://optuna.org/). The data is configurable from `configs/tune.yaml`. Run:
+
+    ```bash
+    $ python src/models/tune_xgboost.py
+    ```
 
 6. **Task #5**
 
@@ -80,11 +98,19 @@ The homework consists of 10 stages:
    
     The newly trained models were registered in MLFlow model registry using MLFlow UI.
  
-    After that offline comparison script was implemented in `src/models/offline_compare.py` which triggers batch predictions on the new month's data (June) using old models and compare against newly trained one. It logs predictions, as well metrics.
+    After that offline comparison script was implemented in `src/models/offline_compare.py` which triggers batch predictions on the new month's data (June) using old models and compare against newly trained one. It logs predictions, as well metrics. Run:
+
+    ```bash
+    $ python src/models/offline_compare.py
+    ```
 
 10. **Task #9**
 
-    Reporting with [EvidentlyAI](https://www.evidentlyai.com/) was supported in `src/models/make_report.py`. Right now, reports are created on May and June data using XGBRegressor.
+    Reporting with [EvidentlyAI](https://www.evidentlyai.com/) was supported in `src/models/make_report.py`. Right now, reports are created on May and June data using XGBRegressor version 2. Run:
+
+   ```bash
+   $ python src/models/make_report.py
+   ```
 
 Project Organization
 ------------

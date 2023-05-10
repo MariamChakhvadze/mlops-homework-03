@@ -37,6 +37,30 @@ class TabularToDict(base.BaseEstimator, base.TransformerMixin):
         return X.to_dict(orient="records")
 
 
+def read_data(filepath: str | omegaconf.ListConfig[str]) -> pd.DataFrame:
+    """Read data into pandas DataFrame.
+
+    If filepath is a list of paths, data will be concatenated.
+
+    Args:
+        filepath: single file path or list of them.
+
+    Returns:
+        Data as pandas DataFrame.
+    """
+    if isinstance(filepath, omegaconf.ListConfig):
+        dfs = []
+
+        for data_file in filepath:
+            dfs.append(pd.read_csv(data_file))
+
+        df = pd.concat(dfs)
+    else:
+        df = pd.read_csv(filepath)
+
+    return df
+
+
 @hydra.main(config_path="../../configs", config_name="train", version_base="1.3.2")
 def train(config: omegaconf.DictConfig) -> None:
     """Train model and log all information in MLFlow.
@@ -46,11 +70,11 @@ def train(config: omegaconf.DictConfig) -> None:
     """
     model = hydra.utils.instantiate(config.model)
 
-    X_train = pd.read_csv(config.train_features)
-    y_train = pd.read_csv(config.train_target).squeeze()
+    X_train = read_data(config.train_features)
+    y_train = read_data(config.train_target).squeeze()
 
-    X_valid = pd.read_csv(config.valid_features)
-    y_valid = pd.read_csv(config.valid_target).squeeze()
+    X_valid = read_data(config.valid_features)
+    y_valid = read_data(config.valid_target).squeeze()
 
     pipe = pipeline.make_pipeline(
         TabularToDict(),

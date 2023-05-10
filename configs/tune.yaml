@@ -1,0 +1,2 @@
+features: data/processed/green_tripdata_2021-01_features.csv
+target: data/processed/green_tripdata_2021-01_target.csv

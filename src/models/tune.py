@@ -11,6 +11,7 @@ import pandas as pd
 from sklearn import feature_extraction, metrics, model_selection, pipeline
 import xgboost as xg
 
+from features import utils
 
 
 def tune(
@@ -19,11 +20,27 @@ def tune(
     n_trials: int = 10,
     n_jobs: int = 1,
     tracking_uri: str | None = None,
-):
-    # -> tuple[dict[str, Any], float]:
+) -> None:
+    """Tune XGBRegressor.
+
+    Args:
+        X: features.
+        y: target.
+        n_trials: number of trials.
+        n_jobs: number of jobs.
+        tracking_uri: MLFlow tracking URI.
+    """
     kf = model_selection.KFold(n_splits=5, shuffle=True, random_state=42)
 
     def objective(trial: optuna.Trial) -> float:
+        """Tune model.
+
+        Args:
+            trial: optuna trial object.
+
+        Returns:
+            Mean RMSE.
+        """
         params = {
             "n_estimators": trial.suggest_int("n_estimators", 100, 1000, 100),
             "max_depth": trial.suggest_int("max_depth", 3, 7),
@@ -41,7 +58,7 @@ def tune(
             X_val, y_val = X.iloc[test_idx], y.iloc[test_idx]
 
             pipe = pipeline.make_pipeline(
-                train.TabularToDict(),
+                utils.TabularToDict(),
                 feature_extraction.DictVectorizer(),
                 xg.XGBRegressor(**params),
             )
@@ -59,7 +76,9 @@ def tune(
         mlflow_kwargs={"nested": True},
     )
 
-    study = optuna.create_study()
+    study = optuna.create_study(
+        study_name="tuning_XGBRegressor",
+    )
     study.optimize(
         func=objective,
         n_trials=n_trials,
@@ -67,11 +86,11 @@ def tune(
         callbacks=[mlflow_callback],
     )
 
-    print(study.best_params)
-    print(study.best_value)
-
 
 if __name__ == "__main__":
-    config = omegaconf.OmegaConf.load("configs/train.yaml")
-    X_train, y_train = train.read_data_into_feats_target(config.train_data)
+    config = omegaconf.OmegaConf.load("configs/tune.yaml")
+
+    X_train = pd.read_csv(config.features)
+    y_train = pd.read_csv(config.target)
+
     tune(X_train, y_train, tracking_uri="http://localhost:5000")

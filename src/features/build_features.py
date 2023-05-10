@@ -17,7 +17,7 @@ def transform_data_into_feats_target_csv(
         dfs = []
 
         for data_file in filepath:
-            df = pd.read_parquet(data_file)
+            dfs.append(pd.read_parquet(data_file))
 
         df = pd.concat(dfs, ignore_index=True)
     else:

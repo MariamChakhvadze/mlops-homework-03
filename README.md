@@ -67,7 +67,7 @@ The homework consists of 10 stages:
     
 7. **Task #6**
 
-    Flask endpoint was created in `src/models/real_time_inference.py`. It serves both registered models. The model can choose using `model_id` parameter (1 - XGBRegressor, 2 - Linear Regression). This endpoint can be tested using `src/models/fake_client.py`.
+    Flask endpoint was created in `src/models/real_time_inference.py`. It serves both registered models. The model can be chosen using `model_id` parameter (1 - XGBRegressor, 2 - Linear Regression). This endpoint can be tested using `src/models/fake_client.py`.
 
 8. **Task #7**
 

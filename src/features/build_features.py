@@ -51,6 +51,3 @@ if __name__ == "__main__":
         transform_data_into_feats_target_csv(
             filepath=data["filepath"], prefix=data["prefix"], save_dir=config.save_dir
         )
-        transform_data_into_feats_target_csv(
-            filepath=data["filepath"], prefix=data["prefix"], save_dir=config.save_dir
-        )

@@ -1,7 +1,7 @@
 Homework #3 of the Quantori MLOps course
 ==============================
 
-This project contains my solutions for homework #3 of the Quantori MLOps course
+This project contains my solutions for homework #3 of the Quantori MLOps course.
 
 Description
 ------------
@@ -10,7 +10,7 @@ The homework consists of 10 stages:
 
 1. **Setup**
 
-    Green taxi records from January 2021 to June 2021 were downloaded. Also, the started notebook was obtained. And finally, the repository was created from [the template](https://drivendata.github.io/cookiecutter-data-science/).
+    Green taxi records from January 2021 to June 2021 were downloaded. Also, the starter notebook was obtained. This repository was created from [the template](https://drivendata.github.io/cookiecutter-data-science/). Downloaded data was placed in `data/external` directory.
 
 2. **Task #1**
    

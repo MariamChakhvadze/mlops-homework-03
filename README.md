@@ -108,9 +108,9 @@ The homework consists of 10 stages:
 
     Reporting with [EvidentlyAI](https://www.evidentlyai.com/) was supported in `src/models/make_report.py`. Right now, reports are created on May and June data using XGBRegressor version 2. Run:
 
-   ```bash
-   $ python src/models/make_report.py
-   ```
+    ```bash
+    $ python src/models/make_report.py
+    ```
 
 Project Organization
 ------------

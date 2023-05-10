@@ -4,16 +4,24 @@ import pandas as pd
 
 
 def transform_data_into_feats_target_csv(
-    filepath: str, prefix: str, save_dir: str
+    filepath: str | list[str], prefix: str, save_dir: str
 ) -> None:
     """Transform NYC Taxi dataset into features and target and save them as CSV files.
 
     Args:
-        filepath: path of dataset.
+        filepath: path of dataset or list of paths.
         prefix: prefix for created files.
         save_dir: directory where transsformed data should be saved.
     """
-    df = pd.read_parquet(filepath)
+    if isinstance(filepath, list):
+        dfs = []
+
+        for data_file in filepath:
+            df = pd.read_parquet(data_file)
+
+        df = pd.concat(dfs, ignore_index=True)
+    else:
+        df = pd.read_parquet(filepath)
 
     df.lpep_dropoff_datetime = pd.to_datetime(df.lpep_dropoff_datetime)
     df.lpep_pickup_datetime = pd.to_datetime(df.lpep_pickup_datetime)

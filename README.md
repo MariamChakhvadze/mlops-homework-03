@@ -18,18 +18,18 @@ The homework consists of 10 stages:
 
 3. **Task #2**
 
-    The starter notebook was refactored into several script and MLFlow tracking was integrated.
+    The starter notebook was refactored into several scripts and MLFlow tracking was integrated.
 
     * [hydra](https://hydra.cc/) support was implemented for configurations.
-    * To process data and split into features and target, `src/features/build_features.py` was implemented. It creates CSV files in `data/processed` directory. Created files were checked using DVC. Also, there files were used in some of the following tasks, especially in training processes. Configuration for this script is in `configs/build_features.yaml`.
+    * To process data and split it into features and target, `src/features/build_features.py` was implemented. It creates CSV files in `data/processed` directory. Created files were checked using DVC. Also, these files were used in some of the following tasks, especially in training processes. Configuration for this script is in `configs/build_features.yaml`.
     * After processing data, to visualize target distribution, `src/visualization/visualize.py` was created. It takes configurations from `configs/visualize.yaml`, plots the distribution for each target file (can work with several ones) and logs figures in MLFlow `visualizations` experiment.
-    * To train model, `src/models/train_model.py` was implemented. It uses configurations from `configs/train.yaml`. Note, several features/target files can be used for training/validation. The script logs all runs in MLFlow `trainings` experiment with all necessary information, metrics and artifacts. With `log_all_model_params: true` all parameters are logged in MLFlow. It also creates `predictions.txt` (model predictions on validation data) file in `models` directory.
+    * To train the model, `src/models/train_model.py` was implemented. It uses configurations from `configs/train.yaml`. Note, several features/target files can be used for training/validation. The script logs all runs in MLFlow `trainings` experiment with all necessary information, metrics and artifacts. With `log_all_model_params: true` all parameters are logged in MLFlow. It also creates `predictions.txt` (model predictions on validation data) file in `models` directory.
 
 4. **Task #3**
 
     5 ML models were chosen:
 
-    1. [Linear Regression](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html) (it was used in the started notebook)
+    1. [Linear Regression](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html) (it was used in the starter notebook)
     2. [GradientBoostingRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingRegressor.html)
     3. [DecisionTreeRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeRegressor.html#sklearn.tree.DecisionTreeRegressor)
     4. [RandomForestRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html)
@@ -49,7 +49,7 @@ The homework consists of 10 stages:
     
 7. **Task #6**
 
-    Flask endpoint was created in `src/models/real_time_inference.py`. It serves both registered models. The model can choose using `model_id` parameter (1 - XGBRegressor, 2 - Linear Regression). This ennpoint can be tested using `src/models/fake_client.py`.
+    Flask endpoint was created in `src/models/real_time_inference.py`. It serves both registered models. The model can choose using `model_id` parameter (1 - XGBRegressor, 2 - Linear Regression). This endpoint can be tested using `src/models/fake_client.py`.
 
 8. **Task #7**
 
